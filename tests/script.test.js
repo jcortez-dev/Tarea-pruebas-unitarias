@@ -1,5 +1,5 @@
 const { expect } = require('@jest/globals');
-const { getTwoByConsole } = require('../src/script');
+const { getTwoByConsole, getTwoByGenre, getGameByConsoleAndGenre, getGameByName } = require('../src/script');
 
 describe('Script tests', () => {
   describe('getTwoByConsole', () => {
@@ -22,16 +22,27 @@ describe('Script tests', () => {
 
   describe('getTwoByGenre', () => {
     it('Should return two games by Survival Horror genre', () => {
-      expect(0).toBeTruthy();
+      const games = getTwoByGenre('Survival Horror');
+      expect(games).toHaveLength(3);
+      expect(games[0].genres).toContain('Survival Horror');
+      expect(games[1].genres).toContain('Survival Horror');
+      expect(games[2].genres).toContain('Survival Horror');
     });
-    it('Should throw and error when the console doesnt exists', () => {
-      expect(0).toBeTruthy();
+    it('Should throw and error when the genre doesnt exists', () => {
+      try {
+        getTwoByConsole('GENRE');
+        throw new Error('other-error');
+      } catch (error) {
+        expect(error.message).not.toEqual('other-error');
+      }
     });
   });
 
   describe('getGameByConsoleAndGenre', () => {
     it('Should return a game for GBA and Sport genre', () => {
-      expect(0).toBeTruthy();
+      const game = getGameByConsoleAndGenre('GBA','Sports');
+      expect(game.genres).toContain('Sports');
+      expect(game.video_console).toEqual('GBA');
     });
 
     it('Should throw and error when the console doesnt exists', () => {
@@ -45,7 +56,8 @@ describe('Script tests', () => {
 
   describe('getGameByName', () => {
     it('Should return the Resident evil 2 game', () => {
-      expect(0).toBeTruthy();
+      const game = getGameByName('Resident Evil 2');
+      expect(game.name).toEqual('Resident Evil 2');
     });
 
     it('Should return undefined when not found', () => {
