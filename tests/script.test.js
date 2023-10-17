@@ -67,7 +67,11 @@ describe('Script tests', () => {
 
   describe('getGamesByGenre', () => {
     it('Should return a list of games by Action genre', () => {
-      expect(0).toBeTruthy();
+      const games = getTwoByGenre('Action');
+      
+      games.forEach((game) => {
+        expect(game.genres).toContain('Action');
+      })
     });
     it('Should return a empty list when the genre doesnt exists', () => {
       expect(0).toBeTruthy();
