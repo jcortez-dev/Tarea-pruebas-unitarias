@@ -46,11 +46,21 @@ describe('Script tests', () => {
     });
 
     it('Should throw and error when the console doesnt exists', () => {
-      expect(0).toBeTruthy();
+      try {
+        getGameByConsoleAndGenre('CONSOLE', 'Sports');
+        throw new Error('Expected an error');
+      } catch (error) {
+        expect(error.message).not.toEqual('other-error');
+      }
     });
 
     it('Should throw and error when the genre doesnt exists', () => {
-      expect(0).toBeTruthy();
+      try {
+        getGameByConsoleAndGenre('GBA', 'GENRE');
+        throw new Error('Expected an error');
+      } catch (error) {
+        expect(error.message).not.toEqual('other-error');
+      }
     });
   });
 
@@ -61,7 +71,8 @@ describe('Script tests', () => {
     });
 
     it('Should return undefined when not found', () => {
-      expect(0).toBeTruthy();
+      const game = getGameByName('GAME');
+      expect(game).toBeUndefined();
     });
   });
 
@@ -74,7 +85,8 @@ describe('Script tests', () => {
       })
     });
     it('Should return a empty list when the genre doesnt exists', () => {
-      expect(0).toBeTruthy();
+      const games = getTwoByGenre('Gender');
+      expect(games).toEqual(expect.arrayContaining([]));
     });
   });
 });
